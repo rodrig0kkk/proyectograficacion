@@ -1,10 +1,7 @@
 com\proyectograficacion\proyectograficacion\controller\GestorBiblioteca.class
-com\proyectograficacion\proyectograficacion\view\Prints.class
 com\proyectograficacion\proyectograficacion\controller\Utiles.class
 com\proyectograficacion\proyectograficacion\model\Biblioteca.class
-com\proyectograficacion\proyectograficacion\controller\MenuPrincipal.class
 com\proyectograficacion\proyectograficacion\model\Profesor.class
-com\proyectograficacion\proyectograficacion\controller\GestorPrestamo.class
 com\proyectograficacion\proyectograficacion\model\Prestamo.class
 com\proyectograficacion\proyectograficacion\model\Material.class
 com\proyectograficacion\proyectograficacion\Main.class

@@ -1,0 +1,86 @@
+{
+  "personas": {
+    "1": {
+      "tipoPersona": "Alumno",
+      "nombre": "asd",
+      "apellido": "asd",
+      "correo": "asd",
+      "telefono": 123,
+      "numLibros": 0,
+      "deuda": 0.0
+    },
+    "2": {
+      "tipoPersona": "Profesor",
+      "nombre": "asd",
+      "apellido": "123",
+      "correo": "asd",
+      "telefono": 12314,
+      "numLibros": 0,
+      "deuda": 0.0
+    },
+    "3": {
+      "tipoPersona": "Alumno",
+      "nombre": "asd",
+      "apellido": "asd",
+      "correo": "asd",
+      "telefono": 123123,
+      "numLibros": 0,
+      "deuda": 0.0
+    }
+  },
+  "contadorPersonas": 4,
+  "materiales": {
+    "42311": {
+      "tipoMaterial": "Libro",
+      "codigo": "42311",
+      "autor": "grsw",
+      "titulo": "asedg",
+      "anio": 123123,
+      "status": "Disponible"
+    },
+    "123": {
+      "tipoMaterial": "Revista",
+      "codigo": "123",
+      "autor": "sad",
+      "titulo": "123ased",
+      "anio": 123,
+      "status": "Disponible"
+    },
+    "4123": {
+      "editorial": "adwd",
+      "tipoMaterial": "Libro",
+      "codigo": "4123",
+      "autor": "grdgv",
+      "titulo": "sdfas",
+      "anio": 123,
+      "status": "Disponible"
+    }
+  },
+  "prestamos": [
+    {
+      "id": 1,
+      "codigo": "123",
+      "persona": {
+        "tipoPersona": "Alumno",
+        "nombre": "asd",
+        "apellido": "asd",
+        "correo": "asd",
+        "telefono": 123,
+        "numLibros": 0,
+        "deuda": 0.0
+      },
+      "material": {
+        "tipoMaterial": "Libro",
+        "codigo": "123",
+        "autor": "asd",
+        "titulo": "asd",
+        "anio": 123,
+        "status": "Disponible"
+      },
+      "fechaSalida": "2026-02-26",
+      "fechaRegreso": "2026-03-05",
+      "cuota": 0.0
+    }
+  ],
+  "contadorPrestamos": 2
+}

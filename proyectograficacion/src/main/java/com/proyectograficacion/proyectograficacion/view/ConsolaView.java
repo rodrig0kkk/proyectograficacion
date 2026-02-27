@@ -131,9 +131,9 @@ public class ConsolaView {
             System.out.println("No hay prestamos registrados.");
         } else {
             for (Prestamo p : prestamos) {
-                // p.getId() y p.getCodigo() si existen en Prestamo segun tu logica original
                 System.out.println("Prestamo ID: " + p.getId() + " - Codigo Material: " + p.getCodigo() + " - Fecha Regreso: " + p.getFechaRegreso());
             }
         }
     }
+
 }

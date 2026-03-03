@@ -1,0 +1,11 @@
+com\proyectograficacion\proyectograficacion\controller\GestorBiblioteca.class
+com\proyectograficacion\proyectograficacion\model\Biblioteca.class
+com\proyectograficacion\proyectograficacion\model\Profesor.class
+com\proyectograficacion\proyectograficacion\model\Prestamo.class
+com\proyectograficacion\proyectograficacion\view\ConsolaView.class
+com\proyectograficacion\proyectograficacion\model\Material.class
+com\proyectograficacion\proyectograficacion\Main.class
+com\proyectograficacion\proyectograficacion\model\Persona.class
+com\proyectograficacion\proyectograficacion\model\Revista.class
+com\proyectograficacion\proyectograficacion\model\Libro.class
+com\proyectograficacion\proyectograficacion\model\Alumno.class

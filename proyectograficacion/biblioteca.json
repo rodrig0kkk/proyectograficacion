@@ -26,9 +26,37 @@
       "telefono": 123123,
       "numLibros": 0,
       "deuda": 0.0
+    },
+    "4": {
+      "tipoPersona": "Alumno",
+      "nombre": "santiago",
+      "apellido": "huapalla",
+      "correo": "Sin correo",
+      "telefono": 0,
+      "numLibros": 0,
+      "deuda": 0.0
+    },
+    "5": {
+      "tipoPersona": "Alumno",
+      "nombre": "asdasdasda",
+      "apellido": "g4rgererf",
+      "correo": "asd4gas",
+      "telefono": 12412,
+      "numLibros": 0,
+      "deuda": 0.0
+    },
+    "6": {
+      "numMatricula": 76876,
+      "tipoPersona": "Alumno",
+      "nombre": "xczca",
+      "apellido": "jyfu",
+      "correo": "kjghfkuyjh",
+      "telefono": 766,
+      "numLibros": 0,
+      "deuda": 0.0
     }
   },
-  "contadorPersonas": 4,
+  "contadorPersonas": 7,
   "materiales": {
     "42311": {
       "tipoMaterial": "Libro",
@@ -44,15 +72,22 @@
       "autor": "sad",
       "titulo": "123ased",
       "anio": 123,
-      "status": "Disponible"
+      "status": "Prestado"
     },
     "4123": {
-      "editorial": "adwd",
       "tipoMaterial": "Libro",
       "codigo": "4123",
       "autor": "grdgv",
       "titulo": "sdfas",
       "anio": 123,
+      "status": "Disponible"
+    },
+    "0802": {
+      "tipoMaterial": "Libro",
+      "codigo": "0802",
+      "autor": "guilltyThree",
+      "titulo": "shadow",
+      "anio": 2025,
       "status": "Disponible"
     }
   },
@@ -80,7 +115,55 @@
       "fechaSalida": "2026-02-26",
       "fechaRegreso": "2026-03-05",
       "cuota": 0.0
+    },
+    {
+      "id": 2,
+      "codigo": "123",
+      "persona": {
+        "tipoPersona": "Alumno",
+        "nombre": "santiago",
+        "apellido": "huapalla",
+        "correo": "Sin correo",
+        "telefono": 0,
+        "numLibros": 0,
+        "deuda": 0.0
+      },
+      "material": {
+        "tipoMaterial": "Revista",
+        "codigo": "123",
+        "autor": "sad",
+        "titulo": "123ased",
+        "anio": 123,
+        "status": "Disponible"
+      },
+      "fechaSalida": "2026-03-03",
+      "fechaRegreso": "2026-03-10",
+      "cuota": 0.0
+    },
+    {
+      "id": 3,
+      "codigo": "123",
+      "persona": {
+        "tipoPersona": "Alumno",
+        "nombre": "asd",
+        "apellido": "asd",
+        "correo": "asd",
+        "telefono": 123,
+        "numLibros": 0,
+        "deuda": 0.0
+      },
+      "material": {
+        "tipoMaterial": "Revista",
+        "codigo": "123",
+        "autor": "sad",
+        "titulo": "123ased",
+        "anio": 123,
+        "status": "Prestado"
+      },
+      "fechaSalida": "2026-03-03",
+      "fechaRegreso": "2026-03-10",
+      "cuota": 0.0
     }
   ],
-  "contadorPrestamos": 2
+  "contadorPrestamos": 4
 }

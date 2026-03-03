@@ -47,6 +47,10 @@ public class GestorBiblioteca {
 
         if (persona == null) return "Error: Persona no encontrada.";
         if (material == null) return "Error: Material no encontrado.";
+        if (!material.getStatus().equals("Disponible")) {
+            return "Error: El material ya se encuentra prestado.";
+        }
+        material.setStatus("Prestado");
 
         LocalDate fechaRegreso = LocalDate.now().plusDays(7);
         Prestamo prestamo = new Prestamo(codigoMaterial, persona, material, fechaRegreso, 0);

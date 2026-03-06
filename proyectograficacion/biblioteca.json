@@ -1,0 +1,34 @@
+{
+  "personas": {
+    "1": {
+      "tipoPersona": "Alumno",
+      "nombre": "sntiaog",
+      "apellido": "h",
+      "correo": "sh0802",
+      "telefono": 7482139,
+      "numLibros": 0,
+      "deuda": 0.0
+    }
+  },
+  "contadorPersonas": 2,
+  "materiales": {
+    "123": {
+      "tipoMaterial": "Libro",
+      "codigo": "123",
+      "autor": "hola",
+      "titulo": "hola",
+      "anio": 2023,
+      "status": "Disponible"
+    },
+    "1231": {
+      "tipoMaterial": "Revista",
+      "codigo": "1231",
+      "autor": "si",
+      "titulo": "si",
+      "anio": 2025,
+      "status": "Disponible"
+    }
+  },
+  "prestamos": [],
+  "contadorPrestamos": 1
+}

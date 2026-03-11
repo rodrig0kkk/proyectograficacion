@@ -1,0 +1,106 @@
+
+.root {
+    -fx-background-color: #121212;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.card {
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 12px;
+    -fx-padding: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 0, 10);
+}
+
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+.titulo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4CAF50;
+    -fx-padding: 0 0 15 0; 
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-min-width: 220px;
+    -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.3), 10, 0, 0, 3);
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+    -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.5), 12, 0, 0, 4);
+}
+
+.button:pressed {
+    -fx-background-color: #388e3c;
+    -fx-translate-y: 2px; 
+}
+
+.text-field, .combo-box {
+    -fx-background-color: #2c2c2c;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #888888;
+    -fx-background-radius: 6px;
+    -fx-border-color: #444444;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 12px;
+    -fx-min-width: 250px;
+}
+
+.text-field:focused, .combo-box:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #333333;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #2c2c2c;
+    -fx-border-color: #4CAF50;
+    -fx-border-radius: 4px;
+}
+.combo-box-popup .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-padding: 8px;
+}
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #4CAF50;
+}
+
+.list-view {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #333333;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-width: 0 0 1 0; /* Solo borde inferior para separar */
+    -fx-border-color: #2a2a2a;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

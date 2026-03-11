@@ -1,0 +1,27 @@
+{
+  "personas": {
+    "1": {
+      "numMatricula": 1234,
+      "tipoPersona": "Alumno",
+      "nombre": "santiago",
+      "apellido": "h",
+      "correo": "asdasdas@gmail.com",
+      "telefono": 65124152,
+      "numLibros": 0,
+      "deuda": 0.0
+    }
+  },
+  "contadorPersonas": 2,
+  "materiales": {
+    "123": {
+      "tipoMaterial": "Libro",
+      "codigo": "123",
+      "autor": "GuiltyThree",
+      "titulo": "Shadow Slave",
+      "anio": 2022,
+      "status": "Disponible"
+    }
+  },
+  "prestamos": [],
+  "contadorPrestamos": 1
+}

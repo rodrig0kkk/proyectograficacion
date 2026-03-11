@@ -9,6 +9,7 @@ import com.biblioteca.model.Prestamo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -25,10 +26,35 @@ public class BibliotecaController {
     @FXML private TextField txtIdPersonaPrestamo, txtCodigoMaterialPrestamo;
     @FXML private ListView<String> listViewDatos;
 
+    @FXML private Button btnNuevoMaterial, btnNuevaPersona, btnPrestarMaterial, btnVerListados, btnSalir;
+    @FXML private Button btnGuardarPersona, btnVolverPersona;
+    @FXML private Button btnGuardarMaterial, btnVolverMaterial;
+    @FXML private Button btnRegistrarPrestamo, btnVolverPrestamo;
+    @FXML private Button btnVerPersonas, btnVerMateriales, btnVerPrestamos, btnVolverListados;
+
     @FXML
     public void initialize() {
         cmbTipoPersona.getItems().addAll("Alumno", "Profesor");
         cmbTipoMaterial.getItems().addAll("Libro", "Revista");
+
+        btnNuevoMaterial.setOnAction(event -> mostrarPanelMaterial());
+        btnNuevaPersona.setOnAction(event -> mostrarPanelPersona());
+        btnPrestarMaterial.setOnAction(event -> mostrarPanelPrestamo());
+        btnVerListados.setOnAction(event -> mostrarPanelListados());
+        btnSalir.setOnAction(event -> System.exit(0));
+
+        btnGuardarPersona.setOnAction(event -> guardarPersona());
+        btnGuardarMaterial.setOnAction(event -> guardarMaterial());
+        btnRegistrarPrestamo.setOnAction(event -> registrarPrestamo());
+
+        btnVerPersonas.setOnAction(event -> verPersonas());
+        btnVerMateriales.setOnAction(event -> verMateriales());
+        btnVerPrestamos.setOnAction(event -> verPrestamos());
+
+        btnVolverPersona.setOnAction(event -> volverMenu());
+        btnVolverMaterial.setOnAction(event -> volverMenu());
+        btnVolverPrestamo.setOnAction(event -> volverMenu());
+        btnVolverListados.setOnAction(event -> volverMenu());
     }
 
     private void ocultarPaneles() {
@@ -37,17 +63,16 @@ public class BibliotecaController {
         panelListados.setVisible(false);
     }
 
-    @FXML public void volverMenu() { ocultarPaneles(); panelMenuPrincipal.setVisible(true); panelMenuPrincipal.toFront(); }
-    @FXML public void mostrarPanelPersona() { ocultarPaneles(); panelPersona.setVisible(true); panelPersona.toFront(); }
-    @FXML public void mostrarPanelMaterial() { ocultarPaneles(); panelMaterial.setVisible(true); panelMaterial.toFront(); }
-    @FXML public void mostrarPanelPrestamo() { ocultarPaneles(); panelPrestamo.setVisible(true); panelPrestamo.toFront(); }
-    @FXML public void mostrarPanelListados() { 
+    private void volverMenu() { ocultarPaneles(); panelMenuPrincipal.setVisible(true); panelMenuPrincipal.toFront(); }
+    private void mostrarPanelPersona() { ocultarPaneles(); panelPersona.setVisible(true); panelPersona.toFront(); }
+    private void mostrarPanelMaterial() { ocultarPaneles(); panelMaterial.setVisible(true); panelMaterial.toFront(); }
+    private void mostrarPanelPrestamo() { ocultarPaneles(); panelPrestamo.setVisible(true); panelPrestamo.toFront(); }
+    private void mostrarPanelListados() { 
         ocultarPaneles(); listViewDatos.getItems().clear(); 
         panelListados.setVisible(true); panelListados.toFront(); 
     }
-    @FXML public void clicSalir() { System.exit(0); }
 
-    @FXML public void guardarPersona() {
+    private void guardarPersona() {
         try {
             String tipo = cmbTipoPersona.getValue();
             if (tipo == null) throw new Exception("Selecciona un tipo de persona.");
@@ -61,7 +86,7 @@ public class BibliotecaController {
         } catch (Exception e) { mostrarAlerta("Error", "Revise los datos numéricos o vacíos."); }
     }
 
-    @FXML public void guardarMaterial() {
+    private void guardarMaterial() {
         try {
             String tipo = cmbTipoMaterial.getValue();
             if (tipo == null) throw new Exception("Selecciona un tipo.");
@@ -74,7 +99,7 @@ public class BibliotecaController {
         } catch (Exception e) { mostrarAlerta("Error", "Revise los datos numéricos."); }
     }
 
-    @FXML public void registrarPrestamo() {
+    private void registrarPrestamo() {
         try {
             LocalDate fecha = gestor.registrarPrestamo(Integer.parseInt(txtIdPersonaPrestamo.getText()), txtCodigoMaterialPrestamo.getText());
             mostrarAlerta("Éxito", "Préstamo registrado. Vence: " + fecha);
@@ -83,19 +108,19 @@ public class BibliotecaController {
         } catch (Exception e) { mostrarAlerta("Error", e.getMessage()); }
     }
 
-    @FXML public void verPersonas() {
+    private void verPersonas() {
         listViewDatos.getItems().clear();
         for (Map.Entry<Integer, Persona> entry : gestor.getPersonas().entrySet())
             listViewDatos.getItems().add("ID [" + entry.getKey() + "] " + entry.getValue().toString());
     }
 
-    @FXML public void verMateriales() {
+    private void verMateriales() {
         listViewDatos.getItems().clear();
         for (Map.Entry<String, Material> entry : gestor.getMateriales().entrySet())
             listViewDatos.getItems().add("COD [" + entry.getKey() + "] " + entry.getValue().toString());
     }
 
-    @FXML public void verPrestamos() {
+    private void verPrestamos() {
         listViewDatos.getItems().clear();
         for (Prestamo p : gestor.getPrestamos())
             listViewDatos.getItems().add("Préstamo #" + p.getId() + " | Mat: " + p.getCodigo() + " | Vence: " + p.getFechaRegreso());

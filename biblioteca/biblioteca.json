@@ -1,7 +1,6 @@
 {
   "personas": {
     "1": {
-      "numMatricula": 1234,
       "tipoPersona": "Alumno",
       "nombre": "santiago",
       "apellido": "h",
@@ -9,9 +8,28 @@
       "telefono": 65124152,
       "numLibros": 0,
       "deuda": 0.0
+    },
+    "2": {
+      "tipoPersona": "Profesor",
+      "nombre": "diego",
+      "apellido": "asd",
+      "correo": "gasda",
+      "telefono": 12354123,
+      "numLibros": 0,
+      "deuda": 0.0
+    },
+    "3": {
+      "numMatricula": 1231,
+      "tipoPersona": "Alumno",
+      "nombre": "asdasd",
+      "apellido": "gasdadf",
+      "correo": "gsdfdasd",
+      "telefono": 123451,
+      "numLibros": 0,
+      "deuda": 0.0
     }
   },
-  "contadorPersonas": 2,
+  "contadorPersonas": 4,
   "materiales": {
     "123": {
       "tipoMaterial": "Libro",
@@ -19,9 +37,34 @@
       "autor": "GuiltyThree",
       "titulo": "Shadow Slave",
       "anio": 2022,
-      "status": "Disponible"
+      "status": "Prestado"
     }
   },
-  "prestamos": [],
-  "contadorPrestamos": 1
+  "prestamos": [
+    {
+      "id": 1,
+      "codigo": "123",
+      "persona": {
+        "tipoPersona": "Alumno",
+        "nombre": "santiago",
+        "apellido": "h",
+        "correo": "asdasdas@gmail.com",
+        "telefono": 65124152,
+        "numLibros": 0,
+        "deuda": 0.0
+      },
+      "material": {
+        "tipoMaterial": "Libro",
+        "codigo": "123",
+        "autor": "GuiltyThree",
+        "titulo": "Shadow Slave",
+        "anio": 2022,
+        "status": "Prestado"
+      },
+      "fechaSalida": "2026-03-11",
+      "fechaRegreso": "2026-03-18",
+      "cuota": 0.0
+    }
+  ],
+  "contadorPrestamos": 2
 }

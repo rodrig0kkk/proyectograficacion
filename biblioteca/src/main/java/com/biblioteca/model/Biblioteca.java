@@ -77,4 +77,9 @@ public class Biblioteca {
         }
         return new Biblioteca();
     }
+     public void eliminarPersona(int id) {
+    if (personas.containsKey(id)) {
+        personas.remove(id);
+    }
+}
 }

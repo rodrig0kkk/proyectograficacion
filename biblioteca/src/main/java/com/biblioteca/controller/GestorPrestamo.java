@@ -43,4 +43,5 @@ public class GestorBiblioteca {
     public Map<Integer, Persona> getPersonas() { return biblioteca.getPersonas(); }
     public Map<String, Material> getMateriales() { return biblioteca.getMateriales(); }
     public List<Prestamo> getPrestamos() { return biblioteca.getPrestamos(); }
+
 }

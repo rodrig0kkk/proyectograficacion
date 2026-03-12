@@ -2,46 +2,63 @@ package com.biblioteca.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import com.biblioteca.model.*;
 
-public class GestorBiblioteca {
-    
-    private Biblioteca biblioteca = Biblioteca.cargar();
+public class GestorPrestamo {
 
-    public int registrarAlumno(String n, String a, String c, int tel, int mat) {
-        return biblioteca.agregarPersona(new Alumno("Alumno", n, a, c, tel, 0, 0.0, mat));
+    private Biblioteca biblioteca;
+
+    public GestorPrestamo(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
     }
 
-    public int registrarProfesor(String n, String a, String c, int tel, int emp) {
-        return biblioteca.agregarPersona(new Profesor("Profesor", n, a, c, tel, 0, 0.0, emp));
-    }
+    public LocalDate registrarPrestamo(Persona persona, Material material) throws IllegalArgumentException {
+        if (persona == null) throw new IllegalArgumentException("La persona no existe en el sistema.");
+        if (material == null) throw new IllegalArgumentException("El material no existe.");
+        if (!material.getStatus().equals("Disponible")) throw new IllegalArgumentException("Material ya prestado.");
 
-    public void registrarLibro(String cod, String aut, String tit, int anio, String ed) {
-        biblioteca.agregarMaterial(new Libro("Libro", cod, aut, tit, anio, "Disponible", ed));
-    }
-
-    public void registrarRevista(String cod, String aut, String tit, int anio) {
-        biblioteca.agregarMaterial(new Revista("Revista", cod, aut, tit, anio, "Disponible"));
-    }
-
-    public LocalDate registrarPrestamo(int idPersona, String codigoMaterial) throws IllegalArgumentException {
-        Persona p = biblioteca.getPersona(idPersona);
-        Material m = biblioteca.getMaterial(codigoMaterial);
-
-        if (p == null) throw new IllegalArgumentException("La persona no existe en el sistema.");
-        if (m == null) throw new IllegalArgumentException("El material no existe.");
-        if (!m.getStatus().equals("Disponible")) throw new IllegalArgumentException("Material ya prestado.");
-        
-        m.setStatus("Prestado");
+        material.setStatus("Prestado");
         LocalDate fechaRegreso = LocalDate.now().plusDays(7);
-        biblioteca.agregarPrestamo(new Prestamo(codigoMaterial, p, m, fechaRegreso, 0));
-        
-        return fechaRegreso; 
+        Prestamo prestamo = new Prestamo(material.getCodigo(), persona, material, fechaRegreso, 0);
+        biblioteca.agregarPrestamo(prestamo);
+
+        return fechaRegreso;
     }
 
-    public Map<Integer, Persona> getPersonas() { return biblioteca.getPersonas(); }
-    public Map<String, Material> getMateriales() { return biblioteca.getMateriales(); }
-    public List<Prestamo> getPrestamos() { return biblioteca.getPrestamos(); }
+    public List<Prestamo> getPrestamos() {
+        return biblioteca.getPrestamos();
+    }
+      public String listarPrestamos() {
+        StringBuilder sb = new StringBuilder();
+        for (Prestamo p : biblioteca.getPrestamos()) {
+            sb.append("Préstamo #")
+              .append(p.getId())
+              .append(" | Mat: ")
+              .append(p.getCodigo())
+              .append(" | Persona: ")
+              .append(p.getPersona().getNombre())
+              .append(" ")
+              .append(p.getPersona().getApellido())
+              .append(" | Vence: ")
+              .append(p.getFechaRegreso())
+              .append("\n");
+        }
+        return sb.toString();
+    }
 
+    
+    public boolean eliminarPrestamo(int id) {
+        List<Prestamo> prestamos = biblioteca.getPrestamos();
+        for (Prestamo p : prestamos) {
+            if (p.getId() == id) {
+            
+                p.getMaterial().setStatus("Disponible");
+                prestamos.remove(p);
+                return true;
+            }
+        }
+        return false; 
+    }
 }
+
+

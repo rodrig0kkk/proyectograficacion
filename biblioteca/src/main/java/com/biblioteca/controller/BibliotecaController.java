@@ -17,154 +17,192 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class BibliotecaController {
+    
     private final Biblioteca biblioteca = Biblioteca.cargar();
-   private final GestorPersona gestorPersona = new GestorPersona(biblioteca);
-   private final GestorMaterial gestorMaterial = new GestorMaterial(biblioteca);
-   private final GestorPrestamo gestorPrestamo = new GestorPrestamo(biblioteca);
+    private final GestorPersona gestorPersona = new GestorPersona(biblioteca);
+    private final GestorMaterial gestorMaterial = new GestorMaterial(biblioteca);
+    private final GestorPrestamo gestorPrestamo = new GestorPrestamo(biblioteca);
 
-    @FXML private VBox panelMenuPrincipal, panelPersona, panelMaterial, panelPrestamo, panelListados;
-    @FXML private VBox panelGestorPersona;
-    @FXML private VBox panelNuevaPersona;
-    @FXML private ComboBox<String> cmbTipoPersona;
+    @FXML private VBox panelMenuPrincipal;
+    @FXML private VBox panelMenuPersonas, panelMenuMateriales, panelMenuPrestamos;
+    @FXML private VBox panelPersona, panelMaterial, panelPrestamo;
+    @FXML private VBox panelListadoPersonas, panelListadoMateriales, panelListadoPrestamos;
+
+    @FXML private ComboBox<String> cmbTipoPersona, cmbTipoMaterial;
     @FXML private TextField txtNombre, txtApellido, txtCorreo, txtTelefono, txtDatoExtraPersona;
-    @FXML private Button btnGuardarPersona, btnVolverPersona;
-    @FXML private ComboBox<String> cmbTipoMaterial;
     @FXML private TextField txtCodigoMaterial, txtTitulo, txtAutor, txtAnio, txtEditorial;
-    @FXML private Button btnGuardarMaterial, btnVolverMaterial;
     @FXML private TextField txtIdPersonaPrestamo, txtCodigoMaterialPrestamo;
-    @FXML private Button btnRegistrarPrestamo, btnVolverPrestamo;
-    @FXML private ListView<String> listViewDatos;
-    @FXML private Button btnVerPersonas, btnVerMateriales, btnVerPrestamos, btnVolverListados;
-    @FXML private Button btnNuevoMaterial, btnNuevaPersona, btnPrestarMaterial, btnVerListados, btnSalir;
+    
+    @FXML private ListView<String> listPersonas, listMateriales, listPrestamos;
+
+    @FXML private Button btnMenuPersonas, btnMenuMateriales, btnMenuPrestamos, btnSalir;
+    @FXML private Button btnIrAgregarPersona, btnIrListarPersonas, btnVolverPrincipalDesdePersonas;
+    @FXML private Button btnIrAgregarMaterial, btnIrListarMateriales, btnVolverPrincipalDesdeMateriales;
+    @FXML private Button btnIrAgregarPrestamo, btnIrListarPrestamos, btnVolverPrincipalDesdePrestamos;
+    @FXML private Button btnGuardarPersona, btnVolverPersona, btnEliminarPersona, btnVolverListadoPersonas;
+    @FXML private Button btnGuardarMaterial, btnVolverMaterial, btnEliminarMaterial, btnVolverListadoMateriales;
+    @FXML private Button btnRegistrarPrestamo, btnVolverPrestamo, btnEliminarPrestamo, btnVolverListadoPrestamos;
 
     @FXML
     public void initialize() {
         cmbTipoPersona.getItems().addAll("Alumno", "Profesor");
         cmbTipoMaterial.getItems().addAll("Libro", "Revista");
-        btnNuevoMaterial.setOnAction(e -> mostrarPanelMaterial()); 
-        btnPrestarMaterial.setOnAction(e -> mostrarPanelPrestamo());
-        btnVerListados.setOnAction(e -> mostrarPanelListados());
+
+        // --- NAVEGACIÓN: Menú Principal -> Submenús ---
+        btnMenuPersonas.setOnAction(e -> mostrarPanel(panelMenuPersonas));
+        btnMenuMateriales.setOnAction(e -> mostrarPanel(panelMenuMateriales));
+        btnMenuPrestamos.setOnAction(e -> mostrarPanel(panelMenuPrestamos));
         btnSalir.setOnAction(e -> System.exit(0));
+
+        btnVolverPrincipalDesdePersonas.setOnAction(e -> mostrarPanel(panelMenuPrincipal));
+        btnVolverPrincipalDesdeMateriales.setOnAction(e -> mostrarPanel(panelMenuPrincipal));
+        btnVolverPrincipalDesdePrestamos.setOnAction(e -> mostrarPanel(panelMenuPrincipal));
+
+        // --- NAVEGACIÓN: Gestor de Personas ---
+        btnIrAgregarPersona.setOnAction(e -> mostrarPanel(panelPersona));
+        btnVolverPersona.setOnAction(e -> mostrarPanel(panelMenuPersonas));
+        btnIrListarPersonas.setOnAction(e -> { verPersonas(); mostrarPanel(panelListadoPersonas); });
+        btnVolverListadoPersonas.setOnAction(e -> mostrarPanel(panelMenuPersonas));
+
+        // --- NAVEGACIÓN: Gestor de Materiales ---
+        btnIrAgregarMaterial.setOnAction(e -> mostrarPanel(panelMaterial));
+        btnVolverMaterial.setOnAction(e -> mostrarPanel(panelMenuMateriales));
+        btnIrListarMateriales.setOnAction(e -> { verMateriales(); mostrarPanel(panelListadoMateriales); });
+        btnVolverListadoMateriales.setOnAction(e -> mostrarPanel(panelMenuMateriales));
+
+        // --- NAVEGACIÓN: Gestor de Préstamos ---
+        btnIrAgregarPrestamo.setOnAction(e -> mostrarPanel(panelPrestamo));
+        btnVolverPrestamo.setOnAction(e -> mostrarPanel(panelMenuPrestamos));
+        btnIrListarPrestamos.setOnAction(e -> { verPrestamos(); mostrarPanel(panelListadoPrestamos); });
+        btnVolverListadoPrestamos.setOnAction(e -> mostrarPanel(panelMenuPrestamos));
+
+        // --- ACCIONES: Guardar ---
         btnGuardarPersona.setOnAction(e -> guardarPersona());
-        btnVolverPersona.setOnAction(e -> volverMenu());
         btnGuardarMaterial.setOnAction(e -> guardarMaterial());
-        btnVolverMaterial.setOnAction(e -> volverMenu());
         btnRegistrarPrestamo.setOnAction(e -> registrarPrestamo());
-        btnVolverPrestamo.setOnAction(e -> volverMenu());
-        btnVerPersonas.setOnAction(e -> verPersonas());
-        btnVerMateriales.setOnAction(e -> verMateriales());
-        btnVerPrestamos.setOnAction(e -> verPrestamos());
-        btnVolverListados.setOnAction(e -> volverMenu());
+
+        // --- ACCIONES: Eliminar ---
+        btnEliminarPersona.setOnAction(e -> eliminarPersona());
+        btnEliminarMaterial.setOnAction(e -> eliminarMaterial());
+        btnEliminarPrestamo.setOnAction(e -> eliminarPrestamo());
     }
 
-    private void ocultarPaneles() {
+    // ==========================================
+    // MÉTODO MAESTRO DE NAVEGACIÓN
+    // ==========================================
+    private void mostrarPanel(VBox panelDestino) {
+        // Apaga todos
         panelMenuPrincipal.setVisible(false);
-        panelPersona.setVisible(false);
-        panelMaterial.setVisible(false);
-        panelPrestamo.setVisible(false);
-        panelListados.setVisible(false);
+        panelMenuPersonas.setVisible(false); panelMenuMateriales.setVisible(false); panelMenuPrestamos.setVisible(false);
+        panelPersona.setVisible(false); panelMaterial.setVisible(false); panelPrestamo.setVisible(false);
+        panelListadoPersonas.setVisible(false); panelListadoMateriales.setVisible(false); panelListadoPrestamos.setVisible(false);
+        
+        // Enciende el solicitado
+        panelDestino.setVisible(true);
+        panelDestino.toFront();
     }
 
-    private void volverMenu() {
-        ocultarPaneles();
-        panelMenuPrincipal.setVisible(true);
-        panelMenuPrincipal.toFront();
-    }
-
-    private void mostrarPanelPersona() { ocultarPaneles(); panelPersona.setVisible(true); panelPersona.toFront(); }
-    private void mostrarPanelMaterial() { ocultarPaneles(); panelMaterial.setVisible(true); panelMaterial.toFront(); }
-    private void mostrarPanelPrestamo() { ocultarPaneles(); panelPrestamo.setVisible(true); panelPrestamo.toFront(); }
-    private void mostrarPanelListados() { ocultarPaneles(); listViewDatos.getItems().clear(); panelListados.setVisible(true); panelListados.toFront(); }
-
-
+    // ==========================================
+    // LÓGICA DE GUARDAR (Igual que antes)
+    // ==========================================
     private void guardarPersona() {
         try {
             String tipo = cmbTipoPersona.getValue();
             if (tipo == null) throw new Exception("Selecciona un tipo de persona.");
-
-            int tel = Integer.parseInt(txtTelefono.getText());
-            int extra = Integer.parseInt(txtDatoExtraPersona.getText());
-
-            int id;
-            if (tipo.equals("Alumno")) {
-                id = gestorPersona.registrarAlumno(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(), tel, extra);
-            } else {
-                id = gestorPersona.registrarProfesor(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(), tel, extra);
-            }
-
+            int id = tipo.equals("Alumno") ? gestorPersona.registrarAlumno(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(), Integer.parseInt(txtTelefono.getText()), Integer.parseInt(txtDatoExtraPersona.getText()))
+                                           : gestorPersona.registrarProfesor(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(), Integer.parseInt(txtTelefono.getText()), Integer.parseInt(txtDatoExtraPersona.getText()));
             mostrarAlerta("Éxito", "Persona guardada. ID: " + id);
             txtNombre.clear(); txtApellido.clear(); txtCorreo.clear(); txtTelefono.clear(); txtDatoExtraPersona.clear();
-            volverMenu();
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Revise los datos numéricos o vacíos.");
-        }
+            mostrarPanel(panelMenuPersonas);
+        } catch (Exception e) { mostrarAlerta("Error", "Revise los datos numéricos o vacíos."); }
     }
 
     private void guardarMaterial() {
         try {
             String tipo = cmbTipoMaterial.getValue();
             if (tipo == null) throw new Exception("Selecciona un tipo.");
-
             int anio = Integer.parseInt(txtAnio.getText());
-
-            if (tipo.equals("Libro")) {
-                gestorMaterial.registrarLibro(txtCodigoMaterial.getText(), txtAutor.getText(), txtTitulo.getText(), anio, txtEditorial.getText());
-            } else {
-                gestorMaterial.registrarRevista(txtCodigoMaterial.getText(), txtAutor.getText(), txtTitulo.getText(), anio);
-            }
-
+            if (tipo.equals("Libro")) gestorMaterial.registrarLibro(txtCodigoMaterial.getText(), txtAutor.getText(), txtTitulo.getText(), anio, txtEditorial.getText());
+            else gestorMaterial.registrarRevista(txtCodigoMaterial.getText(), txtAutor.getText(), txtTitulo.getText(), anio);
             mostrarAlerta("Éxito", "Material guardado.");
             txtCodigoMaterial.clear(); txtTitulo.clear(); txtAutor.clear(); txtAnio.clear(); txtEditorial.clear();
-            volverMenu();
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Revise los datos numéricos.");
-        }
+            mostrarPanel(panelMenuMateriales);
+        } catch (Exception e) { mostrarAlerta("Error", "Revise los datos numéricos."); }
     }
 
     private void registrarPrestamo() {
         try {
-            int idPersona = Integer.parseInt(txtIdPersonaPrestamo.getText());
-            String codigoMaterial = txtCodigoMaterialPrestamo.getText();
-
-            Persona persona = gestorPersona.getPersona(idPersona);
-            Material material = gestorMaterial.getMaterial(codigoMaterial);
-
-            LocalDate fecha = gestorPrestamo.registrarPrestamo(persona, material);
-
+            LocalDate fecha = gestorPrestamo.registrarPrestamo(gestorPersona.getPersona(Integer.parseInt(txtIdPersonaPrestamo.getText())), gestorMaterial.getMaterial(txtCodigoMaterialPrestamo.getText()));
             mostrarAlerta("Éxito", "Préstamo registrado. Vence: " + fecha);
             txtIdPersonaPrestamo.clear(); txtCodigoMaterialPrestamo.clear();
-            volverMenu();
-        } catch (Exception e) {
-            mostrarAlerta("Error", e.getMessage());
-        }
+            mostrarPanel(panelMenuPrestamos);
+        } catch (Exception e) { mostrarAlerta("Error", e.getMessage()); }
     }
 
+    // ==========================================
+    // LÓGICA DE VER (Rellenar Listas)
+    // ==========================================
     private void verPersonas() {
-        listViewDatos.getItems().clear();
-        for (Map.Entry<Integer, Persona> entry : gestorPersona.getPersonas().entrySet()) {
-            listViewDatos.getItems().add("ID [" + entry.getKey() + "] " + entry.getValue().toString());
-        }
+        listPersonas.getItems().clear();
+        for (Map.Entry<Integer, Persona> entry : gestorPersona.getPersonas().entrySet())
+            listPersonas.getItems().add("ID [" + entry.getKey() + "] " + entry.getValue().toString());
     }
 
     private void verMateriales() {
-        listViewDatos.getItems().clear();
-        for (Map.Entry<String, Material> entry : gestorMaterial.getMateriales().entrySet()) {
-            listViewDatos.getItems().add("COD [" + entry.getKey() + "] " + entry.getValue().toString());
-        }
+        listMateriales.getItems().clear();
+        for (Map.Entry<String, Material> entry : gestorMaterial.getMateriales().entrySet())
+            listMateriales.getItems().add("COD [" + entry.getKey() + "] " + entry.getValue().toString());
     }
 
     private void verPrestamos() {
-        listViewDatos.getItems().clear();
-        for (Prestamo p : gestorPrestamo.getPrestamos()) {
-            listViewDatos.getItems().add("Préstamo #" + p.getId() + " | Mat: " + p.getCodigo() + " | Vence: " + p.getFechaRegreso());
-        }
+        listPrestamos.getItems().clear();
+        for (Prestamo p : gestorPrestamo.getPrestamos())
+            listPrestamos.getItems().add("Préstamo #" + p.getId() + " | Mat: " + p.getCodigo() + " | Vence: " + p.getFechaRegreso());
+    }
+
+    // ==========================================
+    // LÓGICA DE ELIMINAR (Interactiva)
+    // ==========================================
+    private void eliminarPersona() {
+        String seleccion = listPersonas.getSelectionModel().getSelectedItem();
+        if (seleccion == null) { mostrarAlerta("Aviso", "Selecciona una persona de la lista."); return; }
+        try {
+            // Extrae el ID que está entre los corchetes "ID [1] ..."
+            int id = Integer.parseInt(seleccion.substring(seleccion.indexOf("[") + 1, seleccion.indexOf("]")));
+            if (gestorPersona.eliminarPersona(id)) {
+                mostrarAlerta("Éxito", "Persona eliminada.");
+                verPersonas(); // Refresca la lista visualmente
+            }
+        } catch (Exception e) { mostrarAlerta("Error", "No se pudo eliminar."); }
+    }
+
+    private void eliminarMaterial() {
+        String seleccion = listMateriales.getSelectionModel().getSelectedItem();
+        if (seleccion == null) { mostrarAlerta("Aviso", "Selecciona un material de la lista."); return; }
+        try {
+            // Extrae el código que está entre los corchetes "COD [A1] ..."
+            String codigo = seleccion.substring(seleccion.indexOf("[") + 1, seleccion.indexOf("]"));
+            if (gestorMaterial.eliminarMaterial(codigo)) {
+                mostrarAlerta("Éxito", "Material eliminado.");
+                verMateriales(); // Refresca la lista visualmente
+            }
+        } catch (Exception e) { mostrarAlerta("Error", "No se pudo eliminar."); }
+    }
+
+    private void eliminarPrestamo() {
+        String seleccion = listPrestamos.getSelectionModel().getSelectedItem();
+        if (seleccion == null) { mostrarAlerta("Aviso", "Selecciona un préstamo de la lista."); return; }
+        try {
+            // Extrae el ID que está después del numeral "Préstamo #1 | ..."
+            int id = Integer.parseInt(seleccion.substring(seleccion.indexOf("#") + 1, seleccion.indexOf(" |")));
+            if (gestorPrestamo.eliminarPrestamo(id)) {
+                mostrarAlerta("Éxito", "Préstamo eliminado y material devuelto.");
+                verPrestamos(); // Refresca la lista visualmente
+            }
+        } catch (Exception e) { mostrarAlerta("Error", "No se pudo eliminar."); }
     }
 
     private void mostrarAlerta(String titulo, String msj) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(msj);
-        a.showAndWait();
+        Alert a = new Alert(Alert.AlertType.INFORMATION); a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msj); a.showAndWait();
     }
 }

@@ -3,9 +3,7 @@ com\biblioteca\model\Profesor.class
 com\biblioteca\Main.class
 com\biblioteca\model\Libro.class
 com\biblioteca\model\Revista.class
-com\biblioteca\controller\BibliotecaController.class
 com\biblioteca\model\Material.class
 com\biblioteca\model\Prestamo.class
 com\biblioteca\model\Biblioteca.class
-com\biblioteca\controller\GestorBiblioteca.class
 com\biblioteca\model\Persona.class

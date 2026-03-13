@@ -9,27 +9,17 @@
       "numLibros": 0,
       "deuda": 0.0
     },
-    "2": {
-      "tipoPersona": "Profesor",
-      "nombre": "diego",
-      "apellido": "asd",
-      "correo": "gasda",
-      "telefono": 12354123,
-      "numLibros": 0,
-      "deuda": 0.0
-    },
-    "3": {
-      "numMatricula": 1231,
+    "4": {
       "tipoPersona": "Alumno",
-      "nombre": "asdasd",
-      "apellido": "gasdadf",
-      "correo": "gsdfdasd",
-      "telefono": 123451,
+      "nombre": "luciana",
+      "apellido": "v",
+      "correo": "aksjhda@gmail.com",
+      "telefono": 7612763,
       "numLibros": 0,
       "deuda": 0.0
     }
   },
-  "contadorPersonas": 4,
+  "contadorPersonas": 5,
   "materiales": {
     "123": {
       "tipoMaterial": "Libro",
@@ -38,6 +28,22 @@
       "titulo": "Shadow Slave",
       "anio": 2022,
       "status": "Prestado"
+    },
+    "12345": {
+      "tipoMaterial": "Revista",
+      "codigo": "12345",
+      "autor": "gased3",
+      "titulo": "dfasda",
+      "anio": 1412,
+      "status": "Disponible"
+    },
+    "3453453": {
+      "tipoMaterial": "Libro",
+      "codigo": "3453453",
+      "autor": "fasdad",
+      "titulo": "sadada",
+      "anio": 51234,
+      "status": "Disponible"
     }
   },
   "prestamos": [

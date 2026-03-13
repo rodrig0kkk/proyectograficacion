@@ -77,9 +77,21 @@ public class Biblioteca {
         }
         return new Biblioteca();
     }
-     public void eliminarPersona(int id) {
-    if (personas.containsKey(id)) {
-        personas.remove(id);
+    public void eliminarPersona(int id) {
+        if (personas.containsKey(id)) {
+            personas.remove(id);
+        }
     }
-}
+
+    public void eliminarMaterial(String codigo) {
+        if (materiales.containsKey(codigo)) {
+            materiales.remove(codigo);
+        }
+    }
+
+    public void eliminarPrestamo(Prestamo p) {
+        if (prestamos.contains(p)) {
+            prestamos.remove(p);
+        }
+    }
 }

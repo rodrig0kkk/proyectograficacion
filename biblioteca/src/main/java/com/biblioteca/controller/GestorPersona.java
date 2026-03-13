@@ -2,7 +2,11 @@
 package com.biblioteca.controller;
 
 import java.util.Map;
-import com.biblioteca.model.*;
+
+import com.biblioteca.model.Alumno;
+import com.biblioteca.model.Biblioteca;
+import com.biblioteca.model.Persona;
+import com.biblioteca.model.Profesor;
 
 public class GestorPersona {
 
@@ -42,7 +46,8 @@ public class GestorPersona {
     public boolean eliminarPersona(int id) {
         Persona p = biblioteca.getPersona(id);
         if (p != null) {
-            biblioteca.eliminarPersona(id); 
+            biblioteca.eliminarPersona(id); // 1. Ordena borrar de RAM
+            biblioteca.guardar();           // 2. Ordena guardar en JSON
             return true;
         }
         return false; 

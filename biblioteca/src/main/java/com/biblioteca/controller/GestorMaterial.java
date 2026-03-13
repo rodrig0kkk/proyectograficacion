@@ -2,7 +2,11 @@
 package com.biblioteca.controller;
 
 import java.util.Map;
-import com.biblioteca.model.*;
+
+import com.biblioteca.model.Biblioteca;
+import com.biblioteca.model.Libro;
+import com.biblioteca.model.Material;
+import com.biblioteca.model.Revista;
 
 public class GestorMaterial {
 
@@ -48,7 +52,8 @@ public class GestorMaterial {
     public boolean eliminarMaterial(String codigo) {
         Material m = biblioteca.getMaterial(codigo);
         if (m != null) {
-            biblioteca.getMateriales().remove(codigo);
+            biblioteca.eliminarMaterial(codigo); 
+            biblioteca.guardar();               
             return true;
         }
         return false; 

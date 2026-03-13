@@ -2,7 +2,11 @@ package com.biblioteca.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import com.biblioteca.model.*;
+
+import com.biblioteca.model.Biblioteca;
+import com.biblioteca.model.Material;
+import com.biblioteca.model.Persona;
+import com.biblioteca.model.Prestamo;
 
 public class GestorPrestamo {
 
@@ -48,12 +52,11 @@ public class GestorPrestamo {
 
     
     public boolean eliminarPrestamo(int id) {
-        List<Prestamo> prestamos = biblioteca.getPrestamos();
-        for (Prestamo p : prestamos) {
+        for (Prestamo p : biblioteca.getPrestamos()) {
             if (p.getId() == id) {
-            
                 p.getMaterial().setStatus("Disponible");
-                prestamos.remove(p);
+                biblioteca.eliminarPrestamo(p);         
+                biblioteca.guardar();                   
                 return true;
             }
         }
